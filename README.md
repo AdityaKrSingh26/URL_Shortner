@@ -3,7 +3,7 @@
 <p id="description">Easily convert lengthy URLs into concise shareable links in seconds. Effortlessly manage your links and unlock real-time IP address and location information of the target domain for enhanced tracking and analysis</p>
 
 <h2>Project Screenshots:</h2>
-![image](https://github.com/AdityaKrSingh26/URL_Shortner/assets/128071145/5c89d9e4-dcb4-4dd8-9b25-b3acdb85ea25)
+<img src="https://i.ibb.co/8xbwxfT/Screenshot-2024-05-14-200132.png" alt="Screenshot-2024-05-14-200132" border="0">
 
 ![image](https://github.com/AdityaKrSingh26/URL_Shortner/assets/128071145/5055c98a-e038-47de-ab71-410079911051)
 
