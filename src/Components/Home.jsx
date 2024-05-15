@@ -11,6 +11,7 @@ function Home() {
   const [shortUrl, setShortUrl] = useState('');
   const [analyticsData, setAnalyticsData] = useState(null);
   const [ipInfo, setIpInfo] = useState(null);
+  const [loading, setLoading] = useState(false); // Add loading state
 
   useEffect(() => {
     if (shortId) {
@@ -32,15 +33,17 @@ function Home() {
   }
 
   const handleGenerateShortUrl = async () => {
+    setLoading(true); // Set loading to true when submitting
     try {
       console.log("Long URL : ", longUrl);
       const response = await axios.post('https://url-jbe7.onrender.com/api/v1/url', { url: longUrl });
-      console.log("Genrate URL: ", response.data);
+      console.log("Generate URL: ", response.data);
       setShortId(response.data.id);
-
     } catch (error) {
       toast.error('Error generating short URL');
       console.error('Error generating short URL:', error);
+    } finally {
+      setLoading(false); // Set loading to false when request is complete
     }
   };
 
@@ -66,16 +69,12 @@ function Home() {
 
   return (
     <div>
-
       <div className="home-wrapper">
-
         <div className="heading-text">
           <h1>Short links, Magical results</h1>
           <h3>Your loooong links will be shortened by a click!</h3>
         </div>
-
         <div className="input-wrapper">
-
           <input
             type="text"
             name="url"
@@ -84,42 +83,35 @@ function Home() {
             placeholder='Enter your link here'
             value={longUrl} onChange={(e) => setLongUrl(e.target.value)}
           />
-
-          {(!ipInfo) && (
-            <button
-              type="submit"
-              className='submit-btn'
-              onClick={handleGenerateShortUrl}
-            >
-              Submit
-            </button>
+          {loading ? ( // Show loading indicator if loading is true
+            <div>Loading...</div>
+          ) : (
+            (!ipInfo) && (
+              <button
+                type="submit"
+                className='submit-btn'
+                onClick={handleGenerateShortUrl}
+              >
+                Submit
+              </button>
+            )
           )}
-
 
           {(shortId && ipInfo) && (
             <div className="after-submit">
-
               <div className="short-url">
-
                 <p className="text-area">{shortUrl}</p>
                 <button className='copy-btn' onClick={copyRoomId}>
                   <img src={copyIcon} alt="Copy icon" />
                 </button>
-
               </div>
-
               <div className="result-wrapper">
                 <ResultTable ipInfo={ipInfo} />
               </div>
-
             </div>
           )}
-
-
         </div>
-
       </div>
-
     </div>
   );
 }
